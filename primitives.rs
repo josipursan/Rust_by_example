@@ -1,3 +1,5 @@
+use std::mem;
+
 #[derive(Debug)]
 struct Matrix(f32, f32, f32, f32);
 
@@ -5,6 +7,13 @@ fn reverse(pair: (i32, bool)) -> (bool, i32)
 {
     let (int_param, bool_param) = pair; // let keyword can be used to bind the members of a tuple to variables
     (bool_param, int_param) // I assume this is considered as the return value, and -> (bool, i32) in function name defines the return data type
+}
+
+
+fn analyze_slice(slice: &[i32])
+{
+    println!("First element of slice : {}", slice[0]);
+    println!("Length of slice : {}", slice.len());
 }
 
 fn main()
@@ -79,4 +88,38 @@ fn main()
 
     let matrix = Matrix(1.1, 1.2, 2.1, 2.2);
     println!("We can even create matrices! {:?}", matrix);
+
+    //Arrays and slices
+    //Fixed-size array
+    let xs: [i32; 5] = [1,2,3,4,5];
+
+    // initializing all 500 elements to value 0
+    let ys: [i32; 500] = [0; 500];
+
+    // Array length can be checked using .len() property
+    println!("Numer of elements in array {}", xs.len());
+
+    //Naturally, arrays are on stack
+    println!("xs arrays occupies {} bytes of memory", mem::size_of_val(&xs));
+    
+    //Arrays can automatically be borrowed as slices
+    println!("Borrowing the whole array as a slice");
+    analyze_slice(&xs);
+
+    println!("Borrowing a section of the array as a slice");
+    analyze_slice(&ys[0 .. 5]);     //indices 0,1,2,3,4 get handled/printed, whatever was intended.
+
+    let empty_array: [u32; 0] = [];
+    assert_eq!(&empty_array, &[]);   //assertion to check whether empty_array is really empty
+
+    
+    // Explanation of this code block is in Notes.md
+    for i in 0..xs.len() + 1
+    {
+        match xs.get(i)
+        {
+            Some(xval) => println!("{} : {}", i, xval),
+            None => println!("Issue accessing xs with index {}", i),
+        }
+    }
 }
