@@ -60,4 +60,19 @@ None => println!("Issue accessing xs with index {}", i);
 &nbsp;&nbsp;&nbsp;-in our example, `#[derive(Debug)]` preceeds `struct Person` definition, which allows us to gain basic info regarding the struct once we have an instance of it; in other words, it allows us to do simply `println!("{:?}", spongebog)`, and have the compiler print this :  
 `Person { name: "Spongebob", age: 20 }`  
   
--
+## Enums  
+-just like in C, allows creation of an unchangeable set of values  
+
+-rust has two different types of `constants` which can be declared in any scope (including global)  
+-`const` and `static`  
+-`const` - unchangeable value  
+-`static` - static keyword can be observed through two different lenses  
+&nbsp;&nbsp;&nbsp;-as a reference lifetime `'static` indicates that the data pointed by the reference lives for the remaining lifetime of the running program  
+&nbsp;&nbsp;&nbsp;-as a trait bound `static` means that the type does not contain any non-static references  
+
+# Variable bindings  
+-rust is statically typed, thus providing type safety  
+-however, in most cases, compiler will be able to properly infer the type of variable from the context  
+-variable bindings have a scope - they are constrained to blocks, blocks being collections of statements between curly braces  
+-variable shadowing (name masking) is also available  
+-declaration without definition is permitted  
