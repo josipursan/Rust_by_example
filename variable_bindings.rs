@@ -19,7 +19,4 @@ fn main()
     mutable_binding += 1;
     println!("After mutation : {}", mutable_binding);
     //_immutable_binding += 1;  This would cause the compiler to error out, because mut modifier has not been used on _immutable_binding
-
-    
-
 }

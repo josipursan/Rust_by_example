@@ -74,5 +74,59 @@ None => println!("Issue accessing xs with index {}", i);
 -rust is statically typed, thus providing type safety  
 -however, in most cases, compiler will be able to properly infer the type of variable from the context  
 -variable bindings have a scope - they are constrained to blocks, blocks being collections of statements between curly braces  
--variable shadowing (name masking) is also available  
+-variable shadowing (name masking) is also available (https://en.wikipedia.org/wiki/Variable_shadowing) 
+-mutablity is not transferable via variable shadowing  
+&nbsp;&nbsp;&nbsp;&nbsp;-if for some reason you have variable `a` both before and in the `for` loop block, and the variable `a` before `for` loop is `mut`, the `a` variable in the `for` loop will not be mutable if it hasn't been declared as being mutable - **THIS IS CALLED FREEZING**  
 -declaration without definition is permitted  
+  
+# Types  
+-rust provides no implicit type conversion between primitive data types  
+-explicit conversion is done using `as` keyword  
+-since v1.45, using `as` keyword performs a *saturating cast*  
+&nbsp;&nbsp;&nbsp;-saturating cast means that when we are casting from float to int, if the floating point exceeds the upper bound, or is less than the lower bound, the returned value will be equal to the bound crossed  
+-Rust also provides us with type aliasing (`UpperCamelCase` must be used)  
+```Rust
+type NanoSecond = u64;  // now instead of declaring a variable being u64 data type, we will decalare it as NanoSecond data type because in our project we often use variables to store soem nanosecond scale times
+type Inch = u64;
+
+fn main()
+{
+    let nanoseconds: NanoSecond = 5 as u64;
+}
+```
+  
+# Conversion  
+-`From` and `Into` keywords allow us to perform data type conversions using some variable as a data type example  
+-`From` allows us to define how a variable will create itself based on some other variable's data type
+```Rust
+let my_str = "hello";
+let my_String = String::From(my_str);   // my_str is a str - it is a temporary, read-only object | my_String is String - it is a growable, heap based data structure used to store a sequence of UTF-8 characters
+```  
+-`Into` enables us to convert a type into another type  
+  
+-`TryFrom` and `TryInto` are used for fallible conversions  
+  
+# Expressions  
+-besided ordinary expressions such as declaring a variable, calling functions, and many more, blocks of code are also expressions, meaning the can also be used as values in assignments  
+```Rust
+fn main()
+{
+    let x = 5u32;
+
+    let y = 
+    {
+        let x_squared = x*x;
+        let x_cube = x_squared*x;
+
+        x_cube + x_squared + x  // This is the return value 
+        // Remember, if the last expression of block ends with a semicolon, the return value will be ()
+    };
+
+    let z = 
+    {
+        2*x;
+        // Because you've used semicolon here, z will always return ()
+    };
+}
+```
+
