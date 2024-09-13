@@ -130,3 +130,19 @@ fn main()
 }
 ```
 
+# Flow of control  
+-rust enables creating infinite loops using a simple `loop` keyword  
+-when nesting loops, it is possible to `breka` or `continue` outer loops from within inner loops (check out `flow_control.rs`)  
+&nbsp;&nbsp;&nbsp;-to do this, loops must be annotated with some chosen label  
+  
+-pay attention to line 32 in `flow_control.rs` - the `match name` line  
+&nbsp;&nbsp;&nbsp;-in the `match name` block the matching is done using `&'Ferris'` - why is that?  
+&nbsp;&nbsp;&nbsp;-because `match name` clause expects `&&str` variable, meaning that you have to pass `&var` to it  
+&nbsp;&nbsp;&nbsp;-a bit more about the *borrowing* operator (&) can be found here : https://doc.rust-lang.org/book/ch04-02-references-and-borrowing.html  
+  
+-by default, `for` will apply the `into_iter` function to the collection we want to iterate  
+-what is the difference between `iter()` and `into_iter()` when creating iterable objects from collections/vectors/whatever?  
+&nbsp;&nbsp;&nbsp;-`iter` borrows each element of the collection through each iteration; therefore, the collection we are iterating is left untouched and is available in its original form for reuse after the loop; It is exactly this *borrowing* that makes us have to do `&var` when doing `match name`  
+&nbsp;&nbsp;&nbsp;-`iter_loop` consumes the collection so that on each iteration the exact data is provided; Once the collection has been consumed in the for loop, it is no longer available for reuse as it has been "moved" to the for loop  
+  
+-`iter_mut()` mutably borrows each element of the collection, allowing for the collection to be modified in place  
