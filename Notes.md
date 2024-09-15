@@ -145,4 +145,5 @@ fn main()
 &nbsp;&nbsp;&nbsp;-`iter` borrows each element of the collection through each iteration; therefore, the collection we are iterating is left untouched and is available in its original form for reuse after the loop; It is exactly this *borrowing* that makes us have to do `&var` when doing `match name`  
 &nbsp;&nbsp;&nbsp;-`iter_loop` consumes the collection so that on each iteration the exact data is provided; Once the collection has been consumed in the for loop, it is no longer available for reuse as it has been "moved" to the for loop  
   
--`iter_mut()` mutably borrows each element of the collection, allowing for the collection to be modified in place  
+-rust provides pattern matching via the `match` keyword, which can be used like `switch` is used in C  
+-
