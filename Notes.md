@@ -146,4 +146,34 @@ fn main()
 &nbsp;&nbsp;&nbsp;-`iter_loop` consumes the collection so that on each iteration the exact data is provided; Once the collection has been consumed in the for loop, it is no longer available for reuse as it has been "moved" to the for loop  
   
 -rust provides pattern matching via the `match` keyword, which can be used like `switch` is used in C  
--
+  
+-binding allows us, via `@` operator, to do the pattern-matching for a value, and also the usage of that value as well  
+  
+## if let  
+-`if let` permits patterns matching within the condition of an `if` statement  
+-for example, let's say we have some sort of `Option <T>`, and we want to call some function if it is `Some<T>`, but do nothing if it's None - using `match` this would look like this :  
+```Rust
+match option{
+    Some(x) => { foo(x) },
+    None => {},
+}
+```  
+-`if let` allows us to make this prettier :  
+```Rust
+if let Some(x) = option{
+    foo(x);
+} else{
+    bar();
+}
+```  
+  
+# Functions  
+-*associated functions* and *methods* will be skipped for the time being - they introduce OOP like behaviour  
+  
+-*closures* - functions without names; basically what lambdas are in python  
+&nbsp;&nbsp;&nbsp;-`let increment = |x:i32| x+1`  
+&nbsp;&nbsp;&nbsp;-`increment` - name of the closure which is called  
+&nbsp;&nbsp;&nbsp;-`|x:i32|` - parameter and its type that we pass to the closure, ie. the value on which we want the closure to execute on  
+&nbsp;&nbsp;&nbsp;-`x+1` - body of the closure; what the closure does  
+  
+-*diverging* functions never return, and are marked using `!`  

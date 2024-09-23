@@ -1,3 +1,11 @@
+fn age() -> u32{
+    15
+}
+
+fn some_number() -> Option<u32>{
+    Some(42)
+}
+
 fn main()
 {
     'outer: loop
@@ -170,4 +178,22 @@ fn main()
         Temperature::Fahrenheit(t) if t > 86 => println!("{}F is above 86", t),
         Temperature::Fahrenheit(t) => println!("{}F is below 86", t),
     }
+
+    // Binding
+    match age() {
+        0 => println!("I am zero years"),
+        n @ 1 ..=12 => println!("1 I am {:?}", n),
+        n @ 13 ..=19 => println!("2 I am {:?}", n),
+        n => println!("3 I am {:?}", n),
+    }
+
+    // bindings can also be used to destructure
+    match some_number()
+    {
+        Some(n @ 42) => println!("1 Answer is {:?}", n),
+        Some(n) => println!("2 Answer is : {:?}", n),
+        _ => println!("Match to anything else"),
+    }
+
+    
 }   
