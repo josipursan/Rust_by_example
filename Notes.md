@@ -177,3 +177,32 @@ if let Some(x) = option{
 &nbsp;&nbsp;&nbsp;-`x+1` - body of the closure; what the closure does  
   
 -*diverging* functions never return, and are marked using `!`  
+  
+# Modules  
+-module system - used to hierarchically split code in logical units (*modules*), and manage visibility (*public/private*) between them  
+-at first glance, this look like OOP concepts have merged with C  
+  
+-keyword `mod` defines a module, which contains all functionalities and variables which are grouped together due to their context  
+-by default, items in a module have `private` visibility, which can be overriden using `pub` keyword  
+-modules can be nested  
+  
+-`use` keyword is used to bind a full path to a new name for easier access, cleaner and more succint code  
+&nbsp;&nbsp;&nbsp;-this is comparable to statements in python such as `from matplotlib import someFoo as tinki_vinki` (now someFoo is accessed using only `tinki_vinki()` instead of having to do `matplotlib.someFoo()`)  
+  
+# Crate
+-*crate* - a compilation unit in Rust  
+-when you do `rustc someFile.rs`, `someFile.rs` is considered a crate  
+-if `someFile.rs` has `mod` declarations in it, contents of the module file will be inserted in places where `mod` declarations have been made *before* running the compile  
+&nbsp;&nbsp;&nbsp;-what does this mean? *Modules do NOT get compiled individually*  
+-a crate can be compiled into a library or a binary  
+-default `rustc` behaviour is that it compiles a binary  
+  
+How to create a library?  
+&nbsp;&nbsp;&nbsp;&nbsp;-given a file `teletubbies.rs`, the command is `rustc --crate-type=lib teletubbies.rs`, library `libteletubbies.rlib` gets generated  
+&nbsp;&nbsp;&nbsp;&nbsp;-libraries get prefixed with `lib`  
+&nbsp;&nbsp;&nbsp;&nbsp;-by default libraries get named after their crate file (ie. the file passed to be compiled into a library) - this can be overriden by `--crate-name` option  
+  
+-when you want to link a crate to this new library, you need to use `--extern` flag when compiling  
+-assume we have some crate `spongebob.rs` which we want to link to some acquired/previously compiled library called `library.rlib`  
+`rustc spongebob.rs --extern rary=library.rlib && spongebob`  
+-functions from `library.rlib` are invoked in `spongebob.rs` like this : `rary::some_interesting_function()`  
