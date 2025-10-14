@@ -31,19 +31,21 @@
  *
  * */
 
-fn sum(values: &[i32]) -> i32
+fn sum(values: &mut [i32]) -> i32
 {
     let mut res = 0;
     for i in 0..values.len()
     {
+        values[i] += 1;
         res += values[i];
     }
     res // return value
 }
-
 fn main()
 {
-    let arr = [10, 20, 30, 40];
-    let sum_res = sum(&arr);
+    let mut arr = [10, 20, 30, 40];
+    println!("arr before sum call : {:?}", arr);
+    let sum_res = sum(&mut arr);
     println!("sum_res : {}", sum_res);
+    println!("arr after being modified in sum : {:?}", arr);
 }
