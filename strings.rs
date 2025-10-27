@@ -38,5 +38,29 @@ fn main()
 	dump(&s);
 
 
-    // The notation used for slices works with strings as well: ...
+    // Example of breaking up strings : 
+    let text = "A system of cells interlinked within";
+    let words: Vec<&str> = text.split_whitespace().collect();
+    println!("text split by whitespace : {:?}", words);
+
+    /*
+        1.Why does "words" have to be defined as Vec<&str> data type?
+        2. Why is string slice used (&str) instead of plain string?
+
+        1. It must be explicitly defined as Vec<&str> data type because
+            function split_whitespace() yields items of type &str, ie. a slice
+            representing each subunit from the orignal string.
+            Because we call collect() Rust must know what kind of collection type we
+            want to build. Since split_whitespace() returns string slice we use it as
+            the collection type.
+
+        2. split_whitespace() does not allocate new strings - it instead gives us slices
+            (&str). This is why we must use Vec<&str> - we basically have a borrowed view
+            into the original string.
+    */
+
+    // Different way of doing the same thing as above - this approach allocates space to keep the slice created by split_whitespace()
+    let mut newWords = Vec::new();
+    newWords.extend(text.split_whitespace());
+    println!("newWords : {:?}", newWords);
 }
